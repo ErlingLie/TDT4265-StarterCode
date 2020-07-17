@@ -6,7 +6,7 @@ import zipfile
 import tqdm
 
 
-zip_url = "https://drive.google.com/file/d/1gjNk2vubi7-4Tq8bZS95lffYhvoitpT9/view?usp=sharing"
+zip_url = ""
 dataset_path = pathlib.Path("datasets", "tdt4265")
 
 
@@ -70,10 +70,12 @@ def download_labels(request_wrapper):
     if status_code != 200:
         print("Failure on download of dataset. Contact a TA.")
         exit()
-    labels = json.loads(response.text)
-    label_path = dataset_path.joinpath("train", "labels.json")
-    with open(label_path, "w") as fp:
-        json.dump(labels, fp)
+    zip_path = dataset_path.joinpath("labels.zip")
+    with open(zip_path, 'wb') as fd:
+        for chunk in response.iter_content(chunk_size=512):
+            fd.write(chunk)
+    with zipfile.ZipFile(zip_path) as f:
+        f.extractall(dataset_path)
     print("Labels downloaded.")
 
 

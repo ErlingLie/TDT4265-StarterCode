@@ -79,6 +79,21 @@ class DatasetCatalog:
         'tdt4265_test': {
             'data_dir': 'tdt4265/test',
             'split': 'test'
+        },
+        "coco_traffic_train": {
+            "data_dir": "train/images",
+            "ann_file": "labels_train.json",
+            "split" : "train"
+        },
+        "coco_traffic_val" : {
+            "data_dir": "train/images",
+            "ann_file": "val_split.json",
+            "split" : "val"
+        },
+        "coco_traffic_test" : {
+            "data_dir": "test/images",
+            "ann_file": "empty_test.json",
+            "split" : "test"
         }
 
     }
